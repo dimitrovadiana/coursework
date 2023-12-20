@@ -32,12 +32,4 @@ public class ProductTest extends TestUtil {
 
         Assert.assertEquals(shoppingCartBadge.getText(), "1");
     }
-
-    @DataProvider(name = "items list")
-    public Object[][] getItems(){
-        return new Object[][]{
-                {"bike-light"},
-                {"bolt-t-shirt"}
-        };
-    }
 }
