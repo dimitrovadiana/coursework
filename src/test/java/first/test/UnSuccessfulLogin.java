@@ -25,7 +25,7 @@ public class UnSuccessfulLogin extends TestUtil {
 
         WebElement closeErrorMsgBtn = driver.findElement(By.cssSelector(".error-button"));
 
-        Assert.assertTrue(!closeErrorMsgBtn.isDisplayed());
+        Assert.assertTrue(closeErrorMsgBtn.isDisplayed());
     }
 
 }
