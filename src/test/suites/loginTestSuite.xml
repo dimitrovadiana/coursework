@@ -10,5 +10,6 @@
         <classes>
             <class name="first.test.LoginWithProblemUser"/>
         </classes>
+
     </test>
 </suite>
