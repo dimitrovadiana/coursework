@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 
 public class UnSuccessfulLogin extends TestUtil {
 
-    @Test (dataProvider = "wrongUsers", enabled = false)
+    @Test (dataProvider = "wrongUsers")
     public void UnsuccessfulLoginTest(String username, String password){
         WebElement userNameInput = driver.findElement(By.id("user-name"));
         userNameInput.click();
