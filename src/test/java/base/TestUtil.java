@@ -4,7 +4,6 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.safari.SafariDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
@@ -18,20 +17,25 @@ public class TestUtil extends DataProviders{
     private String browser, targetURL;
     private int implicitWait;
 
-    @AfterMethod
-    public void tearDown(){
-        driver.quit();
-    }
-
     @BeforeMethod
-    public void setupDriverAndOpenTargetURL() {
+    public void setupDriverAndOpenTargetURL() throws InterruptedException {
+        // read configurations for browser, url and wait
         readConfig("src/test/resources/config.properties");
+        // set browser based on config properties - chrome or firefox
         setupDriver();
-        //Implicit wait:
-        //driver.manage().timeouts().implicitlyWait(Duration.from(Duration.ofSeconds(implicitWait)));
+        //Implicit wait before opening the target url:
+        driver.manage().timeouts().implicitlyWait(Duration.from(Duration.ofSeconds(implicitWait)));
+        //Open target url in browser
         driver.get(targetURL);
     }
 
+    @AfterMethod
+    public void tearDown(){
+        //close window after test is completed
+        driver.quit();
+    }
+
+    //Read configurations from config.properties
     private void readConfig(String pathToFile){
         try{
             FileInputStream fileInputStream = new FileInputStream(pathToFile);
@@ -45,27 +49,23 @@ public class TestUtil extends DataProviders{
         }
     }
 
-    private void setupDriver(){
-        switch (browser){
-            case "safari":
-                driver = setupSafariDriver();
+    // set browser based on config properties - chrome or firefox
+    private void setupDriver() {
+        switch (browser) {
+            case "chrome":
+                driver = setupChromeDriver();
                 break;
             case "firefox":
                 driver = setupFireFoxDriver();
                 break;
             default:
-                driver = setupChromeDriver();
+                System.out.println("Invalid browser");
         }
     }
 
     private WebDriver setupChromeDriver(){
         WebDriverManager.chromedriver().setup();
-        return driver = new ChromeDriver();
-    }
-
-    private WebDriver setupSafariDriver(){
-        WebDriverManager.safaridriver().setup();
-        return new SafariDriver();
+        return new ChromeDriver();
     }
 
     private WebDriver setupFireFoxDriver(){

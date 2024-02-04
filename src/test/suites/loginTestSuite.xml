@@ -3,12 +3,12 @@
 <suite name="Login Tests" thread-count="100" parallel="tests" annotations="JDK" verbose="1">
     <test name="unsuccessful">
         <classes>
-            <class name="first.test.UnSuccessfulLogin"/>
+            <class name="testsPOM.SuccessfulLoginTest"/>
         </classes>
     </test>
     <test name="successful">
         <classes>
-            <class name="first.test.LoginWithProblemUser"/>
+            <class name="testsPOM.UnsuccessfulLoginTest"/>
         </classes>
     </test>
 </suite>

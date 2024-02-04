@@ -16,6 +16,9 @@ public class LoginPage extends BasePage {
     @FindBy(id="login-button")
     private WebElement loginBtn;
 
+    @FindBy(xpath = " //*[@id=\"login_button_container\"]/div/form/div[3]/h3")
+    private WebElement invalidLoginError;
+
     //constructor
     public LoginPage(WebDriver driver){
         super(driver);
@@ -23,7 +26,13 @@ public class LoginPage extends BasePage {
     }
 
     //methods i.e. actions on the page
-    public ProductPage login(String username, String password){
+    public ProductPage loginWithValidUser(String username, String password){
+        login(username, password);
+
+        return new ProductPage(driver);
+    }
+
+    public void login(String username, String password) {
         userNameInput.click();
         userNameInput.clear();
         userNameInput.sendKeys(username);
@@ -33,7 +42,9 @@ public class LoginPage extends BasePage {
         passwordInput.sendKeys(password);
 
         loginBtn.click();
+    }
 
-        return new ProductPage(driver);
+    public boolean isInvalidErrorDisplayed(){
+        return invalidLoginError.isDisplayed();
     }
 }

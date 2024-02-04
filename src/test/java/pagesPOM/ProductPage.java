@@ -15,6 +15,9 @@ public class ProductPage extends BasePage{
     @FindBy(className = "shopping_cart_badge")
     private WebElement shoppingCartBadge;
 
+    @FindBy(className = "shopping_cart_link")
+    private WebElement shoppingCartLink;
+
     public ProductPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
@@ -35,5 +38,11 @@ public class ProductPage extends BasePage{
 
     public int getItemsInCart(){
         return Integer.parseInt(shoppingCartBadge.getText());
+    }
+
+    public CartPage clickShoppingCartLink(){
+        shoppingCartLink.click();
+
+        return new CartPage(driver);
     }
 }
